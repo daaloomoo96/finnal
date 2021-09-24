@@ -1,0 +1,142 @@
+<!-- Menú lateral-->
+<ion-menu side="start" menuId="first" contentId="main">
+
+    <ion-header>
+        <ion-toolbar color="primary">
+
+            <ion-title>
+                <img height="40px" src="./assets/icon/logoIconoInvertido.png" width="40px" style="margin-right: 20%;">
+                Menú
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+
+    <ion-content>
+        <ion-list>
+
+            <ion-item (click)="cambiarComponente(0)">
+                <ion-button class="botonSinEfecto" fill="clear" strong>
+                    <div style="display: flex;width: 100%;">
+                        <div style="display: flex; width: 20%;">
+                            <ion-icon name="home-sharp"></ion-icon>
+                        </div>
+                        <div style="display: flex; justify-content: flex-start;width: 80%;"> <label>Inicio</label></div>
+                    </div>
+                </ion-button>
+            </ion-item>
+
+            <ion-item (click)="cambiarComponente(1)">
+                <ion-button class="botonSinEfecto" fill="clear" strong>
+                    <div style="display: flex;width: 100%;">
+                        <div style="display: flex; width: 20%;">
+                            <ion-icon name="calendar"></ion-icon>
+                        </div>
+                        <div style="display: flex; justify-content: flex-start;width: 80%;"> <label>Calendarios</label>
+                        </div>
+                    </div>
+                </ion-button>
+            </ion-item>
+
+            <ion-item (click)="cambiarComponente(2)">
+                <ion-button class="botonSinEfecto" fill="clear" strong>
+                    <div style="display: flex;width: 100%;">
+                        <div style="display: flex; width: 20%;">
+                            <ion-icon name="wallet"></ion-icon>
+                        </div>
+                        <div style="display: flex; justify-content: flex-start;width: 80%;"> <label>Gastos</label></div>
+                    </div>
+                </ion-button>
+            </ion-item>
+
+            <ion-item (click)="cambiarComponente(3)">
+                <ion-button class="botonSinEfecto" fill="clear" strong>
+                    <div style="display: flex;width: 100%;">
+                        <div style="display: flex; width: 20%;">
+                            <ion-icon name="speedometer"></ion-icon>
+                        </div>
+                        <div style="display: flex; justify-content: flex-start;width: 80%;"> <label>Retos</label></div>
+                    </div>
+                </ion-button>
+            </ion-item>
+
+
+        </ion-list>
+    </ion-content>
+    <button style="float: right;" mat-raised-button color="warn" (click)="desconectar()">Desconectar!</button>
+</ion-menu>
+<!-- Fin menú lateral ----------------------------------------------------------->
+
+<ion-router-outlet id="main"></ion-router-outlet>
+
+<ion-header>
+
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+
+        <div style="display: flex">
+
+            <img height="40px" src="./assets/icon/logoEnteroPequeñoInvertido.png"
+                style="width: 10%;height: auto;margin-left: 5%;">
+
+            <ion-title style="text-align: center;">{{titulo}} </ion-title>
+
+        </div>
+
+
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <ng-container *ngIf="s.activarNotificaciones;">
+
+
+        <ng-container *ngIf="s.algunoSinPagar; else soloCercanos">
+            <ion-fab style="margin-top: 2%; margin-right: 1%;" vertical="top" horizontal="end" edge slot="fixed"
+                [matMenuTriggerFor]="menu">
+                <ion-fab-button color="danger">
+                    <ion-icon name="alert-circle"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="queComponente=2">
+                    <span>Hay pagos a punto de vencer!</span>
+                </button>
+            </mat-menu>
+        </ng-container>
+
+
+        <ng-template #soloCercanos>
+            <ion-fab style="margin-top: 2%;" vertical="top" horizontal="end" edge slot="fixed"
+                [matMenuTriggerFor]="menu">
+                <ion-fab-button color="warning">
+                    <ion-icon name="alert-circle"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="queComponente=2">
+                    <span>Hay pagos cercanos!</span>
+                </button>
+            </mat-menu>
+        </ng-template>
+
+
+
+    </ng-container>
+
+
+
+    <span [ngSwitch]="queComponente">
+
+        <app-inicio *ngSwitchCase="0"></app-inicio>
+        <app-calendarios *ngSwitchCase="1"></app-calendarios>
+        <app-gastos *ngSwitchCase="2"></app-gastos>
+        <app-retos *ngSwitchCase="3"></app-retos>
+
+        <!--  <p *ngSwitchDefault></p> -->
+    </span>
+</ion-content>

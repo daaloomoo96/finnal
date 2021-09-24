@@ -1,0 +1,45 @@
+<ion-content>
+<div  style="width: 100%;height: 100%; padding: 2%;"> 
+    <table style="border: 1px solid black; width: 100%;" mat-table [dataSource]="s.sf.usuario.retos.pendientes"
+    (matSortChange)="ordenarTabla($event)" class="tabla" matSort>
+  
+  
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Reto </th>
+        <td mat-cell *matCellDef="let reto"> {{reto.idReal}} </td>
+    </ng-container>
+  
+  
+    <ng-container matColumnDef="creador">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Creador del Reto </th>
+        <td mat-cell *matCellDef="let reto"> {{reto.idCreador}}</td>
+    </ng-container>
+  
+  
+    <ng-container matColumnDef="ahorro">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ahorro Necesario </th>
+      <td mat-cell *matCellDef="let reto">{{reto.ahorroNecesario}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="aportacion">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Aportación Mensual </th>
+    <td mat-cell *matCellDef="let reto">{{reto.aporte}}</td>
+</ng-container>
+  
+    <ng-container matColumnDef="gestionar">
+        <th mat-header-cell *matHeaderCellDef>Gestionar</th>
+        <td mat-cell *matCellDef="let reto">
+            <ion-icon class="aceptarReto" color="green" (click)="aceptarReto(reto)"
+                name="checkmark-circle"></ion-icon>&nbsp;&nbsp;&nbsp;
+                <ion-icon class="rechazarReto" color="danger" (click)="rechazarReto(reto)"
+                name="trash"></ion-icon>
+        </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="['id','creador','ahorro','aportacion','gestionar']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','creador','ahorro','aportacion','gestionar']"></tr>
+  </table>
+</div>
+  
+
+</ion-content>

@@ -1,0 +1,65 @@
+<ion-content>
+<div style="width: 100%; height: 20%;display: flex; flex-wrap: wrap;align-items: flex-end; justify-content: center;">
+  <img src="./assets/icon/logoEnteroGrande.png" width="auto" height="200px">
+</div>
+  <div style="width: 100%; height: 80%;display: flex; justify-content: center; align-items: center;">
+    <div style="width: 25%;height: auto;">
+      <button style="float: left;" mat-raised-button color="primary" (click)="irA('home')">Volver!</button>
+      <br>
+      <br>
+      <mat-vertical-stepper linear="true" #stepper>
+  
+        <mat-step [completed]="completado1" [stepControl]="grupo1">
+  
+          <ng-template matStepLabel><label style="font-size: 1.5vw;">Selección de Nombre</label></ng-template>
+          <p style="font-size: 1vw;">Aquí se ha de crear un nombre de usuario,<br> el cual será único y no podrá
+            repetirse. <br>
+            ¡ Elija bien !</p>
+  
+          <ion-item>
+            <ion-label>Nombre :</ion-label>
+            <ion-input [(ngModel)]="nombre"></ion-input>
+          </ion-item>
+          <br>
+          <button style="float: right;" (click)="controlNombre(stepper)" mat-raised-button color="primary">Siguiente!</button>
+        </mat-step>
+  
+  
+  
+        <mat-step [completed]="completado2" [stepControl]="grupo2">
+  
+          <ng-template matStepLabel><label style="font-size: 1.5vw;">Selección de Contraseña</label></ng-template>
+          <ion-item>
+            <ion-label>Contraseña :</ion-label>
+            <ion-input type="password" [(ngModel)]="contrasena"></ion-input>
+          </ion-item>
+          <br>
+          <button style="float: left;" mat-raised-button (click)="atras(stepper,2)" color="primary">Atrás</button>
+  
+  
+          <button style="float: right;" mat-raised-button (click)="controlContrasena(stepper)"
+            color="primary">Siguiente!</button>
+  
+  
+  
+        </mat-step>
+        <mat-step [completed]="completado3"  [stepControl]="grupo3">
+          <ng-template matStepLabel><label style="font-size: 1.5vw;">Ingreso Mensual</label></ng-template>
+          <ion-item>
+            <ion-label>Ingreso Mensual :</ion-label>
+            <ion-input [(ngModel)]="ingresoMensual"></ion-input>
+          </ion-item>
+          <br>
+          <button style="float: left;margin-right: 15%;" mat-raised-button (click)="atras(stepper,3)"
+            color="primary">Atrás</button>
+          <button mat-raised-button (click)="stepper.reset()" color="primary">Empezar de nuevo :(</button>
+          <button style="float: right;" mat-raised-button matStepperNext color="primary"
+           (click)="crearCuenta()">Finalizar!</button>
+        </mat-step>
+      </mat-vertical-stepper>
+  
+    </div>
+  </div>
+
+  
+</ion-content>

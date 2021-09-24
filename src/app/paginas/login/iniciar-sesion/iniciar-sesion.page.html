@@ -1,0 +1,23 @@
+<ion-content>
+
+  <img src="./assets/icon/logoEnteroGrande.png" width="45%" height="auto" style="margin-left: 28%; margin-top: 5%;">
+
+  <div style="margin-left: 40%; margin-top: 5%; width: 20%;">
+
+    <ion-item>
+      <ion-label style="font-size: 1vw;" position="floating">Nombre de usuario :</ion-label>
+      <ion-input [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label style="font-size: 1vw;" position="floating">Contraseña :</ion-label>
+      <ion-input type="password" [(ngModel)]="contrasena" (keyup.enter)="iniciarSesion()"></ion-input>
+    </ion-item>
+    
+    <br><br><br>
+
+    <button style="float: left;" mat-raised-button color="primary" (click)="irA('home')">Volver!</button>
+    <button style="float: right;" mat-raised-button color="primary"  (click)="iniciarSesion()" >Iniciar Sesión!</button>
+
+  </div>
+</ion-content>

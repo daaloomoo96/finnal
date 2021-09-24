@@ -1,0 +1,60 @@
+<ion-content>
+
+    <div style="padding: 2%;width: 100%;height: 100%; border: 3px solid black;">
+
+        <div style="width: 100%; text-align: center;">
+            <h1>Añadir nuevo gasto</h1>
+        </div>
+
+        <ion-item>
+            <ion-label position="floating">Nombre del Gasto</ion-label>
+            <ion-input [(ngModel)]="nombre"></ion-input>
+        </ion-item>
+        <br><br>
+        <ion-item>
+            <ion-label position="floating">Coste Mensual</ion-label>
+            <ion-input type="number" [(ngModel)]="coste"></ion-input>
+        </ion-item>
+        <br><br>
+        <ion-item>
+            <ion-label position="floating">Día de Pago (número)</ion-label>
+            <ion-input type="number" [(ngModel)]="dia"></ion-input>
+        </ion-item>
+
+        <ion-list>
+            <ion-list-header>
+                <ion-label>
+                    Tipo de Gasto
+                </ion-label>
+            </ion-list-header>
+            <ion-item>
+                <ion-select [(ngModel)]="tipo" placeholder="Mensual/Trimestral/Anual">
+                    <ion-select-option selected value="Mensual">Mensual</ion-select-option>
+                    <ion-select-option value="Trimestral">Trimestral</ion-select-option>
+                    <ion-select-option value="Anual">Anual</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+
+        <ng-container *ngIf="tipo=='Trimestral'||tipo=='Anual';">
+            <ion-item>
+                <ion-label position="floating">Número de mes de primer pago</ion-label>
+                <ion-input type="number" [(ngModel)]="mes"></ion-input>
+            </ion-item>
+        </ng-container>
+
+
+        <br><br>
+
+        <div style="width: 60%; text-align: center; margin-left: 20%; margin-right: 20%;">
+
+            <ion-button (click)="anadirGasto()" color="primary" style="float: right;">Añadir Gasto</ion-button>
+            <ion-button (click)="cancelar()" color="primary" style="float: left;">Cancelar</ion-button>
+        </div>
+
+
+    </div>
+
+
+
+</ion-content>

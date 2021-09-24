@@ -1,0 +1,273 @@
+    <ion-content>
+    <div style="height: 100%; width: 100%">
+        <div id="divArriba">
+            <div id="divArriba-Arriba"></div>
+
+            <div id="divArriba-Abajo">
+                <div style="text-align: center; justify-content: center">
+                    Gastos totales : {{s.sf.usuario.gastoTotal}}€
+                </div>
+
+                <div style="display: flex; justify-content: center">
+                    <ion-button (click)="anadirGasto()" fill="clear">Añadir
+                        nuevo gasto &nbsp; &nbsp;
+                        <ion-icon name="add-circle"></ion-icon>
+                    </ion-button>
+                </div>
+
+                <div style="text-align: center; justify-content: center">
+                    Cantidad de Gastos : {{s.sf.usuario.gastos.length}}
+                </div>
+            </div>
+        </div>
+
+        <div id="divAbajo">
+            <div id="divTabla" style="width: 80%; height: auto">
+
+                <!-- Información -->
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header style="border-bottom: 1px solid
+                        black;
+                        background-color: rgba(128, 128, 128, 0.1);">
+                        <mat-panel-title>
+                            <h1>Información</h1>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div style="width: 100%;">
+                        <div style="width: 60%;">
+                            <h4 style="border-bottom: 1px solid black;">Gastos mes Actual</h4>
+                            <p>
+                                En este apartado aparecen los gastos que se cobrarán en el mes actual.
+                                <br/> <br>
+
+                                Desde aquí,se podrá visualizar si aún no está cerca (Pendiente),
+                                si queda una semana para su cobro (Cercano), si ya ha sido pagado (Pagado)
+                                o si ha llegado el día y/o se ha pasado el día (SinPagar). 
+                                <br><br>
+
+                                Si algún pago, en el mes actual no existiera el día (ej: dia cobro 31, mes actual 30
+                                días), automáticamente el día de cobro se adaptará para este mes.
+                                <br>  
+                                Desde "Todos los gastos" se podría ver el día de cobro real. 
+                                <br><br>
+
+                                También podrán ser marcados como pagados desde el apartado "Gestionar" de la tabla.
+                                <br><br>
+
+                                Cuando el estado de un pago sea "Cercano" o "SinPagar" se activará una notificación en el panel arriba-derecha.
+                            </p>
+                        </div>
+
+                        <div style="width: 60%;">
+                            <h4 style="border-bottom: 1px solid black;">Todos los gastos</h4>
+                            <p>
+                                Aquí aparecen todos los gastos, ya deban cobrarse este mes o no.<br><br>
+                            </p>
+                        </div>
+
+                        <div style="width: 60%;">
+                            <h4 style="border-bottom: 1px solid black;">General</h4>
+                            <p>
+                                Los gastos pueden ser editados a través de "Gastos mes actual" o "todos los
+                                Gastos".<b> Automáticamente se modificarán en los dos. </b> <br><br>
+                                
+                            </p>
+                        </div>
+
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- Mes actual -->
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header style="border-bottom: 1px
+                            solid
+                            black;
+                            background-color: rgba(128, 128, 128, 0.1);">
+                        <mat-panel-title>
+                            <h1>Gastos mes actual
+                                ({{s.sf.usuario.gastosDelMes.length}})</h1>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <table mat-table [dataSource]="s.sf.usuario.gastosDelMes" (matSortChange)="ordenarTablaA($event)"
+                        class="tabla" matSort>
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                            <td mat-cell *matCellDef="let gasto" [ngStyle]="{'background-color':
+                                    gasto.color}">
+                                {{gasto.id}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="precio">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
+                            <td mat-cell *matCellDef="let gasto" [ngStyle]="{'background-color':
+                                    gasto.color}">
+                                {{gasto.precio}}€&nbsp;&nbsp;&nbsp;&nbsp;
+                                <ion-icon name="pencil-outline" style="cursor:
+                                        pointer; font-size: 20px" (click)="editarGastoPrecio(gasto.id)"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="dia">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Dia de Pago
+                            </th>
+                            <td mat-cell *matCellDef="let gasto" [ngStyle]="{'background-color':
+                                    gasto.color}">
+                                {{gasto.diaCobro}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                <ion-icon name="pencil-outline" style="cursor:
+                                        pointer; font-size: 20px" (click)="editarGastoDia(gasto.id)"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="tipo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Tipo de Gasto
+                            </th>
+                            <td mat-cell *matCellDef="let gasto" [ngStyle]="{'background-color':
+                                    gasto.color}">
+                                {{gasto.tipo}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                <ion-icon name="pencil-outline" style="cursor:
+                                        pointer; font-size: 20px" (click)="editarGastoTipo(gasto.id)"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                            <td mat-cell *matCellDef="let gasto" [ngStyle]="{'background-color':
+                                    gasto.color}">
+                                {{gasto.estado}}&nbsp;&nbsp;&nbsp;&nbsp;
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="mes">
+                            <th mat-header-cell *matHeaderCellDef>Mes/es de
+                                pago</th>
+                            <td mat-cell *matCellDef="let gasto" [ngStyle]="{'background-color':
+                                    gasto.color}">
+                                <ng-container *ngIf="gasto.tipo=='Anual';
+                                        else
+                                        mostrarMeses">
+                                    {{ mesesNombre[gasto.mes]}}
+                                </ng-container>
+                                <ng-template #mostrarMeses>
+                                    <ng-container *ngIf="gasto.tipo=='Trimestral';
+                                            else
+                                            mensual">
+                                        {{mesesNombre[gasto.meses[0]]}},
+                                        {{mesesNombre[gasto.meses[1]]}},
+                                        {{mesesNombre[gasto.meses[2]]}}
+                                    </ng-container>
+                                    <ng-template #mensual> Todos
+                                    </ng-template>
+                                </ng-template>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gestionar">
+                            <th mat-header-cell *matHeaderCellDef>Gestionar</th>
+                            <td mat-cell *matCellDef="let gasto" [ngStyle]="{'background-color':
+                                    gasto.color}">
+                                <ion-icon class="pagar" (click)="pagar(gasto)" name="wallet"></ion-icon>
+                                &nbsp;&nbsp;
+                                <ion-icon class="eliminarRegistro" color="danger" (click)="eliminar(gasto.id)"
+                                    name="trash"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="['id','precio','dia','tipo','estado','mes','gestionar']">
+                        </tr>
+                        <tr mat-row *matRowDef="let row; columns:
+                                ['id','precio','dia','tipo','estado','mes','gestionar']"></tr>
+                    </table>
+                </mat-expansion-panel>
+
+                <!-- Todos los gastos -->
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header style="border-bottom: 1px
+                            solid
+                            black;
+                            background-color: rgba(128, 128, 128, 0.1);">
+                        <mat-panel-title>
+                            <h1>Todos los gastos
+                                ({{s.sf.usuario.gastos.length}})</h1>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <table mat-table [dataSource]="s.sf.usuario.gastos" (matSortChange)="ordenarTabla($event)"
+                        class="tabla" matSort>
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                            <td mat-cell *matCellDef="let gasto">{{gasto.id}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="precio">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
+                            <td mat-cell *matCellDef="let gasto">
+                                {{gasto.precio}}€&nbsp;&nbsp;&nbsp;&nbsp;
+                                <ion-icon name="pencil-outline" style="cursor:
+                                        pointer; font-size: 20px" (click)="editarGastoPrecio(gasto.id)"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="dia">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Dia de Pago
+                            </th>
+                            <td mat-cell *matCellDef="let gasto">
+                                {{gasto.dia}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                <ion-icon name="pencil-outline" style="cursor:
+                                        pointer; font-size: 20px" (click)="editarGastoDia(gasto.id)"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="tipo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Tipo de Gasto
+                            </th>
+                            <td mat-cell *matCellDef="let gasto">
+                                {{gasto.tipo}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                <ion-icon name="pencil-outline" style="cursor:
+                                        pointer; font-size: 20px" (click)="editarGastoTipo(gasto.id)"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="mes">
+                            <th mat-header-cell *matHeaderCellDef>Mes/es de
+                                pago</th>
+                            <td mat-cell *matCellDef="let gasto">
+                                <ng-container *ngIf="gasto.tipo=='Anual';
+                                        else
+                                        mostrarMeses">
+                                    {{ mesesNombre[gasto.mes]}}
+                                </ng-container>
+                                <ng-template #mostrarMeses>
+                                    <ng-container *ngIf="gasto.tipo=='Trimestral';
+                                            else
+                                            mensual">
+                                        {{mesesNombre[gasto.meses[0]]}},
+                                        {{mesesNombre[gasto.meses[1]]}},
+                                        {{mesesNombre[gasto.meses[2]]}}
+                                    </ng-container>
+                                    <ng-template #mensual> Todos
+                                    </ng-template>
+                                </ng-template>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gestionar">
+                            <th mat-header-cell *matHeaderCellDef>Gestionar</th>
+                            <td mat-cell *matCellDef="let gasto">
+                                <ion-icon class="eliminarRegistro" color="danger" (click)="eliminar(gasto.id)"
+                                    name="trash"></ion-icon>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="['id','precio','dia','tipo','mes','gestionar']"></tr>
+                        <tr mat-row *matRowDef="let row; columns:
+                                ['id','precio','dia','tipo','mes','gestionar']"></tr>
+                    </table>
+                </mat-expansion-panel>
+            </div>
+        </div>
+    </div>
+</ion-content>

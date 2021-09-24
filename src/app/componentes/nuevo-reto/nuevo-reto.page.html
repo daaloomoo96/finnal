@@ -1,0 +1,45 @@
+<ion-content>
+  <div style="padding-left: 2%;width: 100%;height: 100%;border: 3px solid black;display: flex;flex-direction: column; flex-wrap: wrap;">
+
+    <div style="width: 100%; height: 10%;text-align: center;">
+      <h1 style="margin-bottom: 0%;">Añadir nuevo reto</h1>
+    </div>
+
+    <div style="width: 100%; height: 50%;">
+      <ion-item>
+        <ion-label position="floating">Nombre del reto</ion-label>
+        <ion-input [(ngModel)]="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Ahorro a alcanzar</ion-label>
+        <ion-input type="number" [(ngModel)]="coste"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Aportación Mensual</ion-label>
+        <ion-input type="number" [(ngModel)]="aportacion"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Fecha límite</ion-label><br>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="fecha">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle><br>
+        <mat-datepicker #picker></mat-datepicker>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Participantes (tú ya estás incluido)</ion-label>
+        <ion-input type="text" [(ngModel)]="participante"></ion-input>
+      </ion-item>
+
+      <ion-button (click)="AnadirParticipante()" color="primary" style="float: left;">Añadir Participante</ion-button>
+      <div style="width: 100%;;display: flex; justify-content: center;align-items:center;">
+        <ion-button (click)="anadirReto()" color="primary" style="float: right;">Añadir Reto</ion-button>
+        <ion-button (click)="cancelar()" color="primary" style="float: left;">Cancelar</ion-button>
+      </div>
+    </div>
+
+    
+  </div>
+</ion-content>

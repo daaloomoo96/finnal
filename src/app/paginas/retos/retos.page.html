@@ -1,0 +1,163 @@
+<ion-content>
+
+    <div id="divArriba">
+
+        <div id="divArriba-Arriba">
+
+        </div>
+
+        <div id="divArriba-Abajo">
+
+            <div style="text-align: center;justify-content: center;">Ahorro Necesario Total :
+                {{s.sf.usuario.retos.ahorroTotalPropios+s.sf.usuario.retos.ahorroTotalAceptados}} <br>
+                Ahorro Mensual Necesario : {{s.sf.usuario.retos.ahorroTotalMensualAceptados+s.sf.usuario.retos.ahorroTotalMensualPropios}}
+            </div>
+
+            <div style="display: flex;">
+                <ion-button (click)="anadirReto()" fill="clear">Añadir
+                    nuevo reto &nbsp; &nbsp;<ion-icon name="add-circle"></ion-icon>
+                </ion-button>
+                <ion-button (click)="mostrarRetosPendientes()" fill="clear">Mostrar retos pendientes &nbsp; &nbsp;
+                    <ion-icon name="add-circle"></ion-icon>
+                </ion-button>
+            </div>
+
+
+            <div style="text-align: center; justify-content: center;">Cantidad de Retos :
+                {{s.sf.usuario.retos.propios.length+s.sf.usuario.retos.aceptados.length}}</div>
+        </div>
+
+    </div>
+
+    <div id="divAbajo">
+
+
+        <mat-accordion class="contenedorTarjeta" *ngFor="let reto of s.sf.usuario.retos.propios">
+            <mat-expansion-panel style="border: 1px solid black;">
+                <mat-expansion-panel-header>
+
+                    <mat-panel-title>
+                        <ion-label style="font-size: 20px;">{{reto.id}}</ion-label>
+                    </mat-panel-title>
+
+                    <mat-panel-description>
+                        <div
+                            style="width: 100%;height: 100%; display: flex; justify-content: flex-end;align-items: center;">
+                            <ion-icon class="eliminarTarjeta" color="danger" (click)="s.sf.eliminarRetoPropio(reto)"
+                                name="trash"></ion-icon>
+                        </div>
+                    </mat-panel-description>
+
+                </mat-expansion-panel-header>
+
+                <ion-item>
+                    <ion-label>
+                        Ahorro Necesario : {{reto.ahorroNecesario}}
+                    </ion-label>
+                   <!--  <ion-button (click)="editarAhorroNecesario(reto)" fill="clear">
+                        <ion-icon style="float: right;" name="pencil-outline"></ion-icon>
+                    </ion-button> -->
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Aportación Mensual : {{reto.aporte}}
+                    </ion-label>
+                   <!--  <ion-button (click)="editarAhorroNecesario(reto)" fill="clear">
+                        <ion-icon style="float: right;" name="pencil-outline"></ion-icon>
+                    </ion-button> -->
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Participantes: {{reto.aceptados}}
+                    </ion-label>
+
+                   <!--  <ion-button (click)="editarRetoParticipantes(reto.id)" fill="clear">
+                        <ion-icon style="float: right;" name="pencil-outline"></ion-icon>
+                    </ion-button> -->
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Pendientes: {{reto.pendientes}}
+                    </ion-label>
+
+                   <!--  <ion-button (click)="editarRetoParticipantes(reto.id)" fill="clear">
+                        <ion-icon style="float: right;" name="pencil-outline"></ion-icon>
+                    </ion-button> -->
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Fecha Fin: {{mostrarFecha(reto)}}
+                    </ion-label>
+
+                    <!-- <ion-button (click)="editarRetoParticipantes(reto.id)" fill="clear">
+                        <ion-icon style="float: right;" name="pencil-outline"></ion-icon>
+                    </ion-button> -->
+                </ion-item>
+
+                <ion-item>
+                    <ion-button (click)="estadoDelRetoP(reto.idCreador,reto.id,reto.idCompartido)" style="text-transform: none;" fill="clear">Estado del Reto
+                    </ion-button>
+                </ion-item>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-accordion class="contenedorTarjeta" *ngFor="let reto of s.sf.usuario.retos.aceptados">
+            <mat-expansion-panel style="border: 1px solid black;">
+                <mat-expansion-panel-header>
+
+                    <mat-panel-title>
+                        <ion-label style="font-size: 20px;">{{reto.id}}</ion-label>
+                    </mat-panel-title>
+
+                    <mat-panel-description>
+                        <div
+                            style="width: 100%;height: 100%; display: flex; justify-content: flex-end;align-items: center;">
+                            <ion-icon class="eliminarTarjeta" color="danger" (click)="s.sf.eliminarRetoAceptado(reto)"
+                                name="trash"></ion-icon>
+                        </div>
+                    </mat-panel-description>
+
+                </mat-expansion-panel-header>
+
+
+                <ion-item>
+                    <ion-label>
+                        Precio : {{reto.ahorroNecesario}}
+                    </ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Aportación Mensual : {{reto.aporte}}
+                    </ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Participantes: {{reto.aceptados}}
+                    </ion-label>
+                    <!-- <ion-item *ngFor="let p of reto.participantes"><ion-label>{{p}}</ion-label></ion-item> -->
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Fecha Fin: {{mostrarFecha(reto)}}
+                    </ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-button (click)="estadoDelRetoC(reto.idCreador,reto.idReal,reto.id)" style="text-transform: none;" fill="clear">Estado del
+                        Reto</ion-button>
+                </ion-item>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </div>
+
+</ion-content>

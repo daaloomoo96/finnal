@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar style="text-align: center;" color="primary">
+        <ion-title>Calendario de Pagos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ng-container *ngIf="mostrar;">
+    <ion-row>
+
+        <ion-col size="2">
+            <ion-button fill="clear" (click)="back(calendar.currentDate)">
+                <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-col>
+
+        <ion-col size="8" class="ion-text-center">
+            <h2>{{ viewTitle }}</h2>
+        </ion-col>
+
+
+        <ion-col size="2">
+            <ion-button fill="clear" (click)="next(calendar.currentDate)">
+                <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+    <calendar 
+    noEventsLabel="No hay información para este día"
+    locale="es-Es" 
+    startingDayMonth="1" 
+    [eventSource]="eventSource" 
+    [calendarMode]="calendar.mode" 
+    [currentDate]="calendar.currentDate" 
+    (onTitleChanged)="onViewTitleChanged($event)" 
+    (onCurrentDateChanged)="deslizar($event)">
+    </calendar>
+</ng-container>
+
+
+    <!-- <ion-row>
+
+        <ion-col size="2">
+            <ion-button fill="clear" (click)="back(calendar.currentDate)">
+                <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-col>
+
+        <ion-col size="8" class="ion-text-center">
+            <h2>{{ viewTitle }}</h2>
+        </ion-col>
+
+
+        <ion-col size="2">
+            <ion-button fill="clear" (click)="next(calendar.currentDate)">
+                <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+    <calendar 
+    noEventsLabel="No hay gastos en este día"
+    locale="es-Es" 
+    startingDayMonth="1" 
+    [eventSource]="eventSource" 
+    [calendarMode]="calendar.mode" 
+    [currentDate]="calendar.currentDate" 
+    (onTitleChanged)="onViewTitleChanged($event)" 
+    (onCurrentDateChanged)="deslizar($event)">
+    </calendar> -->
+</ion-content>

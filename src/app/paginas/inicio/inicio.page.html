@@ -1,0 +1,206 @@
+<ion-content>
+
+    <!-- div General -->
+    <div style="width: 100%; height: 100%; display: flex;">
+
+        <!----- div Izquierdo -->
+        <div style="width: 30%; height: 100%; border-right: 1px solid black;overflow: auto;">
+
+            <div style="margin:5%;margin-top: 2%;">
+                <br><br>
+
+                <!-- Cuenta -->
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="estadoPanel = true" (closed)="estadoPanel = false"
+                        style="border: 1px solid black;">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <ion-label style="font-size: 20px;">Cuenta</ion-label>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Datos referentes a la cuenta
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+
+                        <ion-item>
+                            <ion-label>
+                                Nombre : {{s.sf.usuario.id}}
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-input disabled>
+                                Contraseña : {{s.sf.usuario.contrasena}}
+                            </ion-input>
+                            <ion-button (click)="editarContrasena()" fill="clear">
+                                <ion-icon style="float: right;" name="pencil-outline"></ion-icon>
+                            </ion-button>
+
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>
+                                Ingreso Mensual : {{s.sf.usuario.ingresoMensual}}€
+                            </ion-label>
+                            <ion-button (click)="editarIngresoMensual()" fill="clear">
+                                <ion-icon style="float: right;" name="pencil-outline"></ion-icon>
+                            </ion-button>
+                        </ion-item>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <br><br>
+                <!-- Gastos -->
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="estadoPanel = true" (closed)="estadoPanel = false"
+                        style="border: 1px solid black;">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <ion-label style="font-size: 20px;">Gastos</ion-label>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Gastos totales, añadir gastos....
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+
+                        <ion-item>
+                            <ion-label>
+                                Cantidad de gastos : {{this.s.sf.usuario.gastos.length}}
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>
+                                Coste total de gastos : {{s.sf.usuario.gastoTotal}}€
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-button (click)="anadirGasto()" style="text-transform: none;" fill="clear">Añadir gasto
+                            </ion-button>
+                        </ion-item>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <br><br>
+
+
+                <!-- Ahorro -->
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="estadoPanel = true" (closed)="estadoPanel = false"
+                        style="border: 1px solid black;">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <ion-label style="font-size: 20px;">Retos</ion-label>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Retos totales, añadir retos....
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+
+                        <ion-item>
+                            <ion-label>
+                                Cantidad de retos
+                                :{{this.s.sf.usuario.retos.aceptados.length+this.s.sf.usuario.retos.propios.length}}
+                            </ion-label>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>
+                                Ahorro Necesario Total :
+                                {{this.s.sf.usuario.retos.ahorroTotalPropios+s.sf.usuario.retos.ahorroTotalAceptados}}€
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>
+                                Ahorro Mensual Necesario :
+                                {{this.s.sf.usuario.retos.ahorroTotalMensualAceptados+s.sf.usuario.retos.ahorroTotalMensualPropios}}€
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-button (click)="anadirReto()" style="text-transform: none;" fill="clear">Añadir reto
+                            </ion-button>
+                        </ion-item>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+
+
+
+            </div>
+
+
+        </div>
+
+        <!----- div Derecho -->
+        <div style="width: 70%; height: 100%; padding: 40px;overflow: auto;">
+
+
+
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header
+                    style="border-bottom: 1px solid black;background-color: rgba(220, 220, 220, 0.178);">
+                    <mat-panel-title>
+                        <h1>Gráficos con datos de mes actual</h1>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div style="display: flex;justify-content: center;">
+                    <div class="divBarra">
+                        <canvas id="idDisponibleGastadoM">{{s.sC.disponibleGastadoM}}</canvas>
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly; padding: 5px;">
+
+                    <div class="divGrafico">
+                        <canvas id="idGastosPorTipoM">{{s.sC.gastosPorTipoM}}</canvas>
+                    </div>
+
+
+
+                    <div class="divGrafico">
+                        <canvas id="idGastosRetosM">{{s.sC.gastosRetosM}}</canvas>
+                    </div>
+
+                </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header
+                    style="border-bottom: 1px solid black;background-color: rgba(220, 220, 220, 0.178);">
+                    <mat-panel-title>
+                        <h1>Gráficos con datos Generales</h1>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div style="display: flex;justify-content: center;">
+                    <div class="divBarra">
+                        <canvas id="idDisponibleGastado">{{s.sC.disponibleGastado}}</canvas>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;padding: 5px;">
+
+                    <div class="divGrafico">
+                        <canvas id="idGastosPorTipo">{{s.sC.gastosPorTipo}}</canvas>
+                    </div>
+
+
+
+                    <div class="divGrafico">
+                        <canvas id="idGastosRetos">{{s.sC.gastosRetos}}</canvas>
+                    </div>
+
+                </div>
+            </mat-expansion-panel>
+
+
+        </div>
+
+    </div>
+
+
+</ion-content>

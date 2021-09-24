@@ -1,0 +1,51 @@
+<ion-content>
+
+    <div style="width: 100%; height: 100%; padding: 4%; border: 1px solid black;">
+
+        <div style="width: 100%; height: 48%;">
+            <ng-container *ngIf="mostrar">
+                <div style="justify-content: center;width: 100%;height: auto; display: flex;">
+                    <h1>{{nombre}}</h1>
+                </div>
+
+                <h3>Datos de Grupo:</h3>
+
+
+                <ion-item>
+                    <ion-label>
+                        Ahorro Necesario : {{retoCreador.ahorroNecesario}}
+                    </ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Dinero Ahorrado : {{retoCreador.aporteTotal}}
+                    </ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        Días Restantes : {{diasRestantes}}
+                    </ion-label>
+                </ion-item>
+
+                <h3>Datos Individuales :</h3>
+            </ng-container>
+        </div>
+        <br><br>
+
+        <div style="width: 100%; height: 48%;padding-left: 5%; display: flex; justify-content: center;">
+            <div style="width: 350px; height: 150px; ;background-color: rgba(220, 220, 220, 0.100);">
+                <canvas id="idAportacion">{{s.sC.Aportacion}}</canvas>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+</ion-content>

@@ -1,0 +1,16 @@
+
+
+.carta{
+    /* box-shadow: 5px 8px 6px rgb(58 75 86 / 20%); */
+    
+    &:hover {
+        transform: scale(1.2);
+      }
+    cursor: pointer;
+    width: 500px;
+    height: auto;
+    ion-card{
+        border: 1px solid rgb(196, 193, 193);
+        box-shadow: 5px 8px 6px rgb(58 75 86 / 20%);
+    }
+}
